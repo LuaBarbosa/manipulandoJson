@@ -6,7 +6,19 @@ function saida() {
   fs.readFile("./data.json", "utf-8", (error, data) => {
     const objeto = JSON.parse(data);
     let salvar = [];
-    
+    let categoria = [];
+
+    objeto.products.map((item) => {
+      item.categoriesId.forEach((element) => {
+        const categories = objeto.categories.forEach((categori) => {
+          if (element === categori.id) {
+            categoria.push(categori.name);
+          }
+        });
+      });
+
+      //console.log(categoria);
+    });
 
     // const priceFormatado = parseInt(objeto.products.price);
     // const price = priceFormatado / 100;
