@@ -2,44 +2,28 @@ const fs = require("fs");
 
 //lê os conteúdos de um arquivo
 
-function saida() {
-  fs.readFile("./data.json", "utf-8", (error, data) => {
-    const objeto = JSON.parse(data);
-    let salvar = [];
-    let categoria = [];
+fs.readFile("./data.json", "utf-8", (error, data) => {
+  const { products, establishments, categories } = JSON.parse(data);
 
-    objeto.products.map((item) => {
-      item.categoriesId.forEach((element) => {
-        const categories = objeto.categories.forEach((categori) => {
-          if (element === categori.id) {
-            categoria.push(categori.name);
-          }
-        });
-      });
+  let produto = [];
+  let produtoId = [];
+  let produtos = [];
+  let categoriaId = [];
+  let categoriaNome = [];
+  let final = [];
 
-      //console.log(categoria);
+  function productsId(index) {
+    produtoId = establishments[index].productsId; //produtoId com produto
+    produtoId.forEach((element) => {
+      produto = products.find((p) => p.id === element);
+      produtos.push(produto);
     });
 
-    // const priceFormatado = parseInt(objeto.products.price);
-    // const price = priceFormatado / 100;
-    // console.log(priceFormatado);
-
-    objeto.establishments.map((item) => {
-      item.productsId.forEach((element) => {
-        const products = objeto.products.forEach((produto) => {
-          if (element === produto.id) {
-            salvar.push({
-              Establishment: item.name,
-              Categorias: categoria,
-              Products: produto.name,
-              Price: paserFloat(produto.price / 100),
-            });
-          }
-        });
-      });
+    produto.categoriesId.forEach((element2) => {
+      nomeCategoria = categories.find((cat) => cat.id === element2);
+      categoriaNome.push(nomeCategoria);
     });
-    console.log(salvar);
-  });
-}
-
-saida();
+    //console.log(categoriaNome);
+  }
+  productsId(1);
+});
