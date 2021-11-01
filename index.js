@@ -26,4 +26,19 @@ fs.readFile("./data.json", "utf-8", (error, data) => {
     //console.log(categoriaNome);
   }
   productsId(1);
+
+  function categoriaProduto() {
+    categoriaNome.map((item) => {
+      produtos.forEach((element3) => {
+        if (element3.categoriesId.some((cat) => cat === item.id)) {
+          let saida = {
+            [item.name]: {
+              [element3.name]: {},
+            },
+          };
+          final.push(saida);
+        }
+      });
+    });
+  }
 });
